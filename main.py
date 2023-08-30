@@ -738,12 +738,6 @@ def f(n):
     return n * 123456789
 
 
-print(f(33))
-print(f(33))
-print(f(44))
-print(f(44))
-print(f(55))
-print(f(55))
 print(f(77))
 print(f(77))
 print(f(88))
