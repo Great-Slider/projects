@@ -717,35 +717,150 @@ print(14252 + 3869)
 # def f(n):
 #    return n * 123456789
 
-def cache(func):
-    cache_dict = {}
+# def cache(func):
+#     cache_dict = {}
+#
+#     def wrapper(num):
+#         nonlocal cache_dict
+#         if num not in cache_dict:
+#             cache_dict[num] = func(num)
+#             print(f"Добавление результата в кеш: {cache_dict[num]}")
+#         else:
+#             print(f"Получение результата из кеша:{cache_dict[num]}")
+#         print(f"Кеш {cache_dict}")
+#         return cache_dict[num]
+#
+#     return wrapper
+#
+#
+# @cache
+# def f(n):
+#     return n * 123456789
+#
+# print(f(33))
+# print(f(33))
+# print(f(44))
+# print(f(44))
+# print(f(55))
+# print(f(55))
+################################
+# L = ['a', 'b', 'c']
+# print(id(L))
+#
+# L.append('d')
+# print(id(L))
+#
+# a = 5
+# b = 3+2
+#
+# print(id(a))
+# print(id(b))
+################################
+# Используя цикл while, найдите первое целое число, которое не кэшируется в памяти.
+# a = 0
+# b = 0
+# while id(a)==id(b):
+#     a += 1
+#     b += 1
+#
+# print(f"id of {a} = {id(a)}")
+# print(f"id of {b} = {id(b)}")
+# # Модифицируйте алгоритм из предыдущей задачи, чтобы найти первое отрицательное число, не хранящееся в кэше. Какое число получилось здесь?
+# a = 0
+# b = 0
+# while id(a)==id(b):
+#     a -= 1
+#     b -= 1
+#
+# print(f"id of {a} = {id(a)}")
+# print(f"id of {b} = {id(b)}")
 
-    def wrapper(num):
-        nonlocal cache_dict
-        if num not in cache_dict:
-            cache_dict[num] = func(num)
-            print(f"Добавление результата в кеш: {cache_dict[num]}")
-        else:
-            print(f"Получение результата из кеша:{cache_dict[num]}")
-        print(f"Кеш {cache_dict}")
-        return cache_dict[num]
+################################
+# a = 42
+# b = 42
+#
+# print(a == b)
+# # True
+#
+# print(a is b)
+# # True
 
-    return wrapper
+# c = 123456789
+# d = 123456789
+#
+# print(c == d)
+# # True
+#
+# print(c is d)
+# # False
+# print(id(c))
+# print(id(d))
+################################
+#
+# L = ['Hello', 'world']
+# M = L
+#
+# print(M is L)
+# # True
+#
+# M.append('!')
+#
+# print(L)
+# # ['Hello', 'world', '!']
+# print(M)
+# print(M is L)
+#
+# M = L.copy()
+#
+# print(M is L) print(M == L)
+# ############################### Однако здесь есть небольшой нюанс, с которым мы сейчас
+# познакомимся. Неизменяемость кортежей заключается в неизменности набора уникальных идентификаторов объектов,
+# которые хранятся в кортеже. Эту небольшую «лазейку» можно использовать в практических целях.
+#
+# Например, мы хотим хранить в кортеже информацию о торгово-развлекательном центре: его название, адрес и список
+# магазинов. В общем-то такой набор информации остается почти всегда неизменным за исключением того, что список
+# магазинов может изменяться — какие-то закрываются, какие-то открываются или же меняют название. По этой причине
+# такой список нельзя хранить в самом кортеже. Однако можно создать список (list) внутри самого кортежа.
+# shopping_center = ("Галерея", "Санкт-Петербург", "Лиговский пр., 30", ["H&M", "Zara"])
+#
+# shopping_center[-1].append("Uniqlo")
+#
+# print(shopping_center)
+# # ('Галерея', 'Санкт-Петербург', 'Лиговский пр., 30', ['H&M', 'Zara', 'Uniqlo'])
+################################
+# shopping_center = ("Галерея", "Санкт-Петербург", "Лиговский пр., 30", ["H&M", "Zara"])
+# list_id_before = id(shopping_center[-1])
+#
+# shopping_center[-1].append("Uniqlo")
+# list_id_after = id(shopping_center[-1])
+# print(list_id_before)
+# print(list_id_after)
+# print(list_id_before == list_id_after)
+# print(list_id_before is list_id_after)
 
+#########################################################
+# Напишите программу, которая на вход принимает текст и выводит количество уникальных символов.
+# a = "The Zen of Python"
+# print(len(set(list(a))))
+#######################################################
+# abons = {"Иванов", "Петров", "Васильев", "Антонов"}
+#
+# debtors = {"Петров", "Антонов"}
+#
+# non_debtors = abons.difference(debtors)
+#
+# print(non_debtors) # {'Васильев', 'Иванов'}
+#
+# ###################################################### Найдите ошибку в
+# коде и запишите исправленную строку полностью в форму ответа. Представленная ниже программа должна находить
+# множество символов, которые встречаются в двух строках одновременно.
+from natsort import natsorted
 
-@cache
-def f(n):
-    return n * 123456789
+a = "1 2 3 4 5 6 7 8"
+b = "2 4 6 8 10 12"
 
-print(f(33))
-print(f(33))
-print(f(44))
-print(f(44))
-print(f(55))
-print(f(55))
-################################
-################################
-################################
-################################
-################################
-################################
+a_set, b_set = set(a.split()), set(b.split())  # используем множественное присваивание
+
+a_and_b = a_set.symmetric_difference(b_set)
+
+print(natsorted(a_and_b))
